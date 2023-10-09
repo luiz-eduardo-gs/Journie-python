@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import os
 import logging
 
-journie_path = "./Journie"
+journie_path = "./Journie/diary"
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
