@@ -1,5 +1,13 @@
 import sqlite3
 from bs4 import BeautifulSoup
+import os
+import logging
+
+journie_path = "./Journie"
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                    datefmt='%m-%d %H:%M')
 
 con = sqlite3.connect("diary.db")
 cur = con.cursor()
@@ -7,6 +15,12 @@ res = cur.execute("SELECT Z_PK, ZNOTE, strftime('%d-%m-%Y', datetime(ZCREATEDATE
 
 previous_id = next_id = None
 l = len(res)
+
+if not os.path.exists(journie_path):
+    os.makedirs(journie_path)
+    logging.info(f"Created directory '{journie_path}'")
+
+logging.info("Started")
 
 for index, row in enumerate(res):
     if index > 0:
@@ -44,6 +58,8 @@ for index, row in enumerate(res):
         card_header = layout_soup.find("div", {"class": "card-header"})
         card_header.insert(1, str(created_at))
 
-        with open(f'./content/{current_id}.html', 'w') as f:
+        with open(f'{journie_path}/{current_id}.html', 'w') as f:
             f.write(layout_soup.prettify())
             f.close()
+
+logging.info("Done")
