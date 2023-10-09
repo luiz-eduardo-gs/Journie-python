@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG,
 
 con = sqlite3.connect("diary.db")
 cur = con.cursor()
-res = cur.execute("SELECT Z_PK, ZNOTE, strftime('%d-%m-%Y', datetime(ZCREATEDATE + 946684800, 'unixepoch')) FROM ZDIARY").fetchall()
+res = cur.execute("SELECT Z_PK, ZNOTE, strftime('%d-%m-%Y', datetime(ZCREATEDATE + 978307200, 'unixepoch')) FROM ZDIARY").fetchall()
 
 previous_id = next_id = None
 l = len(res)
